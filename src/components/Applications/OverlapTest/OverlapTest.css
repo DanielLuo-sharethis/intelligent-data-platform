@@ -1,0 +1,61 @@
+.overlap-test {
+    display: flex;
+    flex-direction: column;
+    
+    align-items: start;
+    padding: 5%;
+  }
+  
+  .nav-buttons {
+    
+    display: flex;
+
+    margin-bottom: 12px;
+    
+  }
+  .please-set {
+   padding: 12px;
+   /* font-style: bold; */
+   color: var(--Neutral-100, #20262A);
+
+   /* H5/Semi Bold */
+   font-family: Poppins;
+   font-size: 20px;
+   font-style: normal;
+   font-weight: 600;
+   line-height: normal;
+  }
+  
+  .nav-button {
+    display: flex;
+    width: 10em;
+    height: 2em;
+    padding: 8px 20px;
+    justify-content: center;
+    align-items: center;
+   
+    flex-shrink: 0;
+    text-decoration: none;
+    color: #590094;
+    border-radius: 10px;
+    border: 2px solid var(--Purple-A-100, #590094);
+  }
+
+  
+  
+  .nav-button.active {
+    background-color: #590094;
+    color: #fff;
+  }
+
+  .arrow-icon {
+    margin:0 10px;
+  }
+  
+  .content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
