@@ -1,0 +1,28 @@
+.NewApplication {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  
+  padding: 20px;
+  flex-grow: 1;
+  justify-content: space-between;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+}
+
+
+
+
+.message {
+  margin-bottom: 15px;
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Ensures long text wraps */
+}
+
+
+/* scale estimate result  */
+
+
+
+

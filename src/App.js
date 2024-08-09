@@ -1,50 +1,28 @@
+// src/App.jsx
+
 import './App.css';
-import Sidebar from './components/Sidebar/Sidebar';
-import TopNav from './components/TopNav/TopNav';
-import MainContent from './components/MainContent/MainContent';
-import CurrentApplication from './components/CurrentApplication/CurrentApplication';
-import NewApplication from './components/NewApplication/NewApplication';
-import RunHistory from './components/RunHistory/RunHistory';
-import Settings from './components/Settings/Settings';
-import NotFound from './components/NotFound';
-
-import OverlapTest from './components/Applications/OverlapTest/OverlapTest';
-import InputProcessing from './components/Applications/OverlapTest/InputProcessing/InputProcessing';
-import OverlapTestInput from './components/Applications/OverlapTest/OverlapTestInput/OverlapTestInput';
-import OutputProcessing from './components/Applications/OverlapTest/OutputProcessing/OutputProcessing';
-
-import ScaleEstimate from './components/Applications/ScaleEstimate/ScaleEstimate';
+import Signup from 'components/Authentication/Signup/Signup';
+import Login from 'components/Authentication/Login/Login';
+import Dashboard from 'components/IDP_platform/DashBoard/DashBoard';
+import NotFound from 'components/NotFound';
 import { Routes, Route } from 'react-router-dom';
+import { AuthProvider } from 'contexts/AuthContext';
+import PrivateRoute from 'components/Authentication/PrivateRoute/PrivateRoute';
 
 const App = () => {
   return (
-    
-      <div className="App">
-        <Sidebar />
-        <div className="right-section">
-          <TopNav />
-          <div className="content-area">
-            <Routes>
-              <Route path="/" element={<MainContent />} />
-              <Route path="/current-application" element={<CurrentApplication />} />
-              <Route path="/current-application/overlap-test" element={<OverlapTest />}>
-                <Route index element={<InputProcessing  />} />
-                <Route path="input-processing" element={<InputProcessing />} />
-                <Route path="overlap-test-input" element={<OverlapTestInput />} />
-                <Route path="output-processing" element={<OutputProcessing />} />
-              </Route>
-              
-              <Route path="/current-application/scale-estimate" element={<ScaleEstimate />} />
-              <Route path="/new-application" element={<NewApplication />} />
-              <Route path="/run-history" element={<RunHistory />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="*" element={<NotFound />} />
+    <div className="App">
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<PrivateRoute element={Dashboard} />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard/*" element={<PrivateRoute element={Dashboard} />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthProvider>
 
-            </Routes>
-          </div>
-        </div>
-      </div>
-    
+    </div>
   );
 }
 

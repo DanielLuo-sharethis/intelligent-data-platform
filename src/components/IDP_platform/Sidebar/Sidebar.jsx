@@ -1,12 +1,12 @@
 import React from 'react';
 import './Sidebar.css';
 import { Link, useLocation } from 'react-router-dom';
-import predactiv_logo from '../../assets/predactiv-logo.svg';
-import currentApplicationIcon from '../../assets/currentApplication.svg';
-import newApplicationIcon from '../../assets/newApplication.svg';
-import runHistoryIcon from '../../assets/runHistory.svg';
-import settingsIcon from '../../assets/settings.svg';
-import predactiv_TM from '../../assets/predactiv_TM.svg';
+import predactiv_logo from 'assets/predactiv-logo.svg';
+import currentApplicationIcon from 'assets/currentApplication.svg';
+import newApplicationIcon from 'assets/newApplication.svg';
+import runHistoryIcon from 'assets/runHistory.svg';
+import settingsIcon from 'assets/settings.svg';
+import predactiv_TM from 'assets/predactiv_TM.svg';
 
 
 
@@ -27,7 +27,7 @@ function Sidebar() {
           </div>
         </div>
 
-        {isNewApplicationPage && (
+        {isNewApplicationPage ? (
           <div className="gpt-selection">
             <div className="gpt-4">
               <input type="radio" id="gpt-4" name="gpt-version" value="gpt-4" />
@@ -38,6 +38,11 @@ function Sidebar() {
               <label htmlFor="gpt-3.5">GPT-3.5</label>
             </div>
           </div>
+        ):(
+          <div className='gpt-selection-space'>
+
+          </div>
+
         )}
 
 
@@ -47,23 +52,23 @@ function Sidebar() {
 
 
       <nav className="sidebar-nav">
-        <Link to="/current-application" className="sidebar-nav-item">
+        <Link to="/dashboard/current-application" className="sidebar-nav-item">
           <img className="nav-icon" src={currentApplicationIcon} alt="Current Application Icon" />
-          Current Application
+          Current Applications
         </Link>
-        <Link to="/new-application" className="sidebar-nav-item">
+        <Link to="/dashboard/new-application" className="sidebar-nav-item">
           <img className="nav-icon" src={newApplicationIcon} alt="New Application Icon" />
-          New Application
+          New Applications
         </Link>
-        <Link to="/run-history" className="sidebar-nav-item">
+        <Link to="/dashboard/run-history" className="sidebar-nav-item">
           <img className="nav-icon" src={runHistoryIcon} alt="Run History Icon" />
           Run History
         </Link>
-        <Link to="/settings" className="sidebar-nav-item">
+        <Link to="/dashboard/settings" className="sidebar-nav-item">
           <img className="nav-icon" src={settingsIcon} alt="Settings Icon" />
           Settings
         </Link>
-        <Link to="/logout" className="sidebar-nav-logout">
+        <Link to="/dashboard/logout" className="sidebar-nav-logout">
           Logout
         </Link>
       </nav>
