@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/intelligent-data-platform/static/css/main.c61fa8ab.css",
+    "main.css": "/intelligent-data-platform/static/css/main.aaafacc7.css",
     "main.js": "/intelligent-data-platform/static/js/main.a9c85bd0.js",
     "static/media/white_purple.png": "/intelligent-data-platform/static/media/white_purple.13537344ac2cf27f11ef.png",
     "static/media/computer.png": "/intelligent-data-platform/static/media/computer.c5197c506771cb67a0d2.png",
@@ -15,11 +15,11 @@
     "index.html": "/intelligent-data-platform/index.html",
     "static/media/predactiv-logo.svg": "/intelligent-data-platform/static/media/predactiv-logo.14bbbde2b89a802d6c3617cd035cf9b3.svg",
     "static/media/close-icon.svg": "/intelligent-data-platform/static/media/close-icon.856442f4be49e63f9d4f3e35fd14bf82.svg",
-    "main.c61fa8ab.css.map": "/intelligent-data-platform/static/css/main.c61fa8ab.css.map",
+    "main.aaafacc7.css.map": "/intelligent-data-platform/static/css/main.aaafacc7.css.map",
     "main.a9c85bd0.js.map": "/intelligent-data-platform/static/js/main.a9c85bd0.js.map"
   },
   "entrypoints": [
-    "static/css/main.c61fa8ab.css",
+    "static/css/main.aaafacc7.css",
     "static/js/main.a9c85bd0.js"
   ]
 }
