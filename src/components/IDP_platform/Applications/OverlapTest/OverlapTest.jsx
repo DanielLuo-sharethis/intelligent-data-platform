@@ -3,8 +3,10 @@ import { NavLink, Outlet } from 'react-router-dom';
 import './OverlapTest.css';
 
 import axios from 'axios';
+import { useAuth } from 'contexts/AuthContext';
 
 const OverlapTest = () => {
+  const { currentUser, organization } = useAuth();
           
   
 
@@ -22,7 +24,7 @@ const OverlapTest = () => {
     //   <Outlet />
     // </div>
     <div className="overlap-test">
-      <iframe src="https://idp.predactiv.com/apps/get_app_html_template/LG/overlap_test" title="Overlap Test" width="100%" height="600px" style={{ border: 'none' }}></iframe>
+      <iframe src={`https://idp.predactiv.com/apps/get_app_html_template/${organization}/overlap_test`} title="Overlap Test" width="100%" height="600px" style={{ border: 'none' }}></iframe>
     </div>
   );
 }

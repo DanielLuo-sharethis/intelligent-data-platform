@@ -1,11 +1,32 @@
 .run-history {
-    padding: 20px;
-    border-radius: 8px;
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 85vh; /* Adjust to use viewport height */
+   
 }
+
+.table-container {
+  
+    position: relative;
+     /* Add padding at the bottom to make space for the pagination */
+   
+    overflow-y: auto; /* Allows the table to scroll if content overflows */
+    display: flex;
+    flex-direction: column;
+    min-height: 0; /* Allows the container to shrink */
+  
+}
+
 
 .run-history table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    flex: 1;
+    
 }
 
 .run-history table th,
@@ -22,16 +43,28 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    
 }
 
 .run-history table td {
-    padding: 24px 15px;
+    padding: 20px 15px;
     color: var(--Neutral-100, #20262A);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+
+ 
+   
+}
+.run-history table thead th {
+  width: 15%; /* Adjust this as per your needs for consistent spacing between headers */
+}
+
+.run-history table thead th:first-child,
+.run-history table thead th:last-child {
+    width: 10%; /* Adjust width for checkbox and actions */
 }
 
 .run-history table tbody tr:hover {
@@ -39,13 +72,14 @@
   }
 
 .action-button-inputParameters{
-
+    
     border: none;
     border-radius: 40px;
     color: #fff;
     background-color: #281C47;
     padding: 4px 8px;
     flex-shrink: 0;
+    font-size: 12px;
 
     
 }
@@ -147,3 +181,50 @@
     height: 1.5em;
    
   }
+
+
+  /* .pagination-container{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 101%;
+  } */
+
+
+  .pagination {
+    position: absolute;
+    top: 100%;
+    left: 55%;
+   
+    display: flex;
+    
+    list-style: none;
+    padding: 10px 0;
+   
+    
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    color: #000000;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+.pagination .active a {
+    background-color: #bfbfbf;
+    color: #fff;
+    border-color: #f3f5f7;
+}
+
+.pagination a:hover {
+    background-color: #a709f6;
+    color: #fff;
+    border-color: #0056b3;
+}

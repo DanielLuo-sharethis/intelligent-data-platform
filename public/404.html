@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var pathname = window.location.pathname;
+        var query = window.location.search;
+        window.location.replace("/" + pathname.substring(1) + query);
+    </script>
+</body>
+</html>

@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Modal from 'react-modal';
 import closeIcon from '../../../assets/close-icon.svg';
 import axios from 'axios';
+import {useAuth} from 'contexts/AuthContext';
 
 
 
@@ -44,6 +45,10 @@ const CurrentApplication = () => {
    const [deletemModalIsOpen, setDeletemModalIsOpen] = useState(false);
    const [deleteModalContent, setDeleteModalContent] = useState('');
    const [currentApplication, setCurrentApplication] = useState(null);
+   const {currentUser, organization} = useAuth();
+  
+
+  
 
 
    
@@ -57,32 +62,33 @@ const CurrentApplication = () => {
 
   useEffect(() => {
     async function fetchAllApplications() {
-      try {
-        const response = await axios.get('https://idp.predactiv.com/apps/get_user_apps/LG/');
-        const applicationsData = response.data;
-        console.log("raw current application",applicationsData);
-
-        // Reformat the creation_time field
-        const formattedData = reformatCreationTime(applicationsData);
-
-        setAllApplications(formattedData);
-        console.log("formatted current application",formattedData);
-      } catch (error) {
-        console.error('Error fetching applications:', error);
-        // Optionally, set fallback data or handle the error
-        // setAllApplications(sampleApplications); // Uncomment if you have fallback data
+      if(organization ){
+        try {
+          const response = await axios.get(`https://idp.predactiv.com/apps/get_user_apps/${organization}/`);
+          const applicationsData = response.data;
+          console.log("raw current application",applicationsData);
+  
+          // Reformat the creation_time field
+          const formattedData = reformatCreationTime(applicationsData);
+  
+          setAllApplications(formattedData);
+          console.log("formatted current application",formattedData);
+        } catch (error) {
+          console.error('Error fetching applications:', error);
+          // Optionally, set fallback data or handle the error
+          // setAllApplications(sampleApplications); // Uncomment if you have fallback data
+        }
       }
     }
 
     fetchAllApplications();
-  }, []);
+  }, [organization]);
 
     const handleRun = (application) => {
-        if (application === 'overlap_test') {
-            navigate('/current-application/overlap-test/input-processing');
-        }else if (application === 'scale_estimate') {
-            navigate('/current-application/scale-estimate');
+        if (application === 'overlap_test' || application === 'scale_estimate') {
+            navigate(`./use-case/${application}`);
         }
+      
     }
 
     const handleDelete = (application) => {
@@ -117,7 +123,7 @@ const CurrentApplication = () => {
     }
     async function deleteApplication_API(app_name, account){
         try {
-            const response = await axios.get(`https://idp.predactiv.com/apps/delete_user_app/${account}/${app_name}`, {});
+            const response = await axios.get(`https://idp.predactiv.com/apps/delete_user_app/${organization}/${app_name}`, {});
             console.log("deleteApplication_API response", response);
         } catch (error) {
             console.error('Error deleting application:', error);
@@ -142,7 +148,7 @@ const CurrentApplication = () => {
           </tr>
         </thead>
         <tbody>
-          {allApplications.length > 0 ? (allApplications.map((app, index) => (
+          {allApplications.map((app, index) => (
             <tr key={index}>
               <td>{app.app_name}</td>
               <td>{app.account}</td>
@@ -173,11 +179,8 @@ const CurrentApplication = () => {
                 )}
               </td>
             </tr>
-          ))):(
-            <tr>
-                <td colSpan="5">No applications found</td>
-            </tr>
-          )}
+          ))}
+          
         </tbody>
       </table>
 

@@ -17,6 +17,7 @@ const Signup = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
+  const organizationRef = useRef();
   const {signup, currentUser} = useAuth();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -30,15 +31,20 @@ const Signup = () => {
     e.preventDefault();
     console.log("Email:", emailRef.current.value);
 
+
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError('Passwords do not match');
+    }
+    if (passwordRef.current.value.length < 8) {
+      return setError('Password must be at least 8 characters');
     }
     try {
         setError('');
         setLoading(true);
-        await signup(emailRef.current.value, passwordRef.current.value);
+        await signup(emailRef.current.value, passwordRef.current.value, organizationRef.current.value);
         navigate('/dashboard/current-application');
     }catch {
+        setLoading(false);
         setError('Failed to create an account');
     }
    
@@ -77,6 +83,12 @@ const Signup = () => {
             <span>or</span>
           </div>
           <form onSubmit={handleSignup}>
+            {/* Organization Field */}
+            <div className="form-group">
+              <label htmlFor="organization">Organization</label>
+              <input type="text" id="organization" name="organization" placeholder="Type your organization" ref={organizationRef} required />
+            </div>
+
             <div className="form-group">
               <label htmlFor="email">Work Email</label>
               <input type="email" id="email" name="email" placeholder="Type here" ref={emailRef} required />
@@ -90,14 +102,14 @@ const Signup = () => {
             </div>
             <div className="form-group">
               <label htmlFor="password-confirm">Password Confirmation</label>
-              <input type="password-confirm" id="password-confirm" name="password-confirm" placeholder="Type here" ref={passwordConfirmRef}required />
+              <input type="password" id="password-confirm" name="password-confirm" placeholder="Type here" ref={passwordConfirmRef}required />
     
             </div>
             <div className="forgot-password">
               <a href="#">Forgot your password?</a>
             </div>
             <div className="forgot-password">
-              Already have an account? <a href="/login">Log In</a>
+              Already have an account? <Link to='/login'>Log In</Link>
             </div>
             <button disabled = {loading} type="submit" className="login-button">Sign Up</button>
             <button className="request-trial-button">Request Free Trial</button>

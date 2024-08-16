@@ -32,7 +32,7 @@ const Login = () => {
         await login(emailRef.current.value, passwordRef.current.value);
         navigate('/dashboard/current-application');
     }catch {
-        setError('Failed to Sign In');
+        setError('Failed to Login In');
     }
    
     

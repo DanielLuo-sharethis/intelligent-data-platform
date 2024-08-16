@@ -4,7 +4,7 @@ import './TopNav.css';
 const TopNav = () => {
   return (
     <div className="topnav">
-      <div className="user-icon">User Icon</div>
+      {/* <div className="user-icon"></div> */}
     </div>
   );
 };

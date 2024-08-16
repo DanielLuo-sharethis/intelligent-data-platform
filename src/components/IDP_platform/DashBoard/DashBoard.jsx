@@ -13,6 +13,8 @@ import NotFound from 'components/NotFound';
 
 
 import ScaleEstimate from 'components/IDP_platform/Applications/ScaleEstimate/ScaleEstimate';
+import OverlapTest from 'components/IDP_platform/Applications/OverlapTest/OverlapTest';
+import UseCase from 'components/IDP_platform/Applications/UseCase/UseCase';
 
 const DashBoard = () => {
   return (
@@ -30,7 +32,8 @@ const DashBoard = () => {
               <Route path="overlap-test-input" element={<OverlapTestInput />} />
               <Route path="output-processing" element={<OutputProcessing />} />
             </Route> */}
-            <Route path="/current-application/scale-estimate" element={<ScaleEstimate />} />
+           
+            <Route path="/current-application/use-case/:use_case" element={<UseCase/>} />
             <Route path="/new-application" element={<NewApplication />} />
             <Route path="/run-history" element={<RunHistory />} />
             <Route path="/settings" element={<Settings />} />

@@ -1,5 +1,5 @@
 {
-  "homepage": "https://DanielLuo-sharethis.github.io/intelligent-data-platform",
+  "homepage": "https://DanielLuo-sharethis.github.io/intelligent-data-platform/",
   "name": "intelligent-data-platform",
   "version": "0.1.0",
   "private": true,
@@ -21,6 +21,7 @@
     "react-date-range": "^2.0.1",
     "react-dom": "^18.3.1",
     "react-modal": "^3.16.1",
+    "react-paginate": "^8.2.0",
     "react-router-dom": "^6.25.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"

@@ -1,0 +1,40 @@
+/* Settings.css */
+
+.profile-container {
+  position: relative;
+  margin: 0 auto;
+  padding: 20px;
+
+  border-radius: 8px;
+ 
+}
+
+.profile-title {
+  font-size: 1.75rem;
+  margin-bottom: 20px;
+}
+
+.profile-details {
+  margin-bottom: 20px;
+}
+
+.profile-details p {
+  margin: 10px 0;
+}
+
+.log-out-button {
+  display: block;
+  
+  text-align: center;
+  color: #ff0000;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px 0;
+  font-size: 1rem;
+}
+
+.log-out-button:hover {
+  background-color: #f8f9fa;
+}

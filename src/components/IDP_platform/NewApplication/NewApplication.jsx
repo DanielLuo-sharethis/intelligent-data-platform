@@ -4,6 +4,8 @@ import ChatWindow from './ChatWindow';
 import InputBox from './InputBox';
 import './NewApplication.css'; // Import the CSS module
 import 'process/browser';
+import {useAuth} from 'contexts/AuthContext';
+
 
 
 
@@ -48,10 +50,20 @@ const NewApplication = () => {
   const [questionAnswerPairs, setQuestionAnswerPairs] = useState([]);  // Add state to track question_answer_pairs
   const [questionInputValue, setQuestionInputValue] = useState('');  // Add state to track question input value
   const [finalRequest, setFinalRequest] = useState('');  // Add state to track final request
+  const {currentUser} = useAuth();
+  const [organization, setOrganization] = useState('');
 
   // const [ScaleEstimateFormData, setScaleEstimateFormData] = useState();
 
   // send user all the option if they don't want to proceed with all the use cases
+  useEffect(() => {
+    console.log("currentUser", currentUser);
+    const organization = currentUser.displayName;
+    setOrganization(organization);
+    console.log("currentUser's Organization", organization);
+
+   }, [currentUser]);
+
   useEffect(() => {
     if (isShowAllUsecaseOptions) {
 
@@ -156,7 +168,7 @@ const NewApplication = () => {
 
  const saveApplication = async (account, application) => {
    try{
-    const response = await axios.get(`https://idp.predactiv.com/apps/save_new_user_app/${account}/${application}`, {});
+    const response = await axios.get(`https://idp.predactiv.com/apps/save_new_user_app/${organization}/${application}`, {});
     const backend_response = response.data;
     console.log('saveApplication response from backend:', backend_response);
     return backend_response;
