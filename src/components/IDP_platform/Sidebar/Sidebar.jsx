@@ -52,19 +52,22 @@ function Sidebar() {
 
 
       <nav className="sidebar-nav">
-        <Link to="/dashboard/current-application"  className={`sidebar-nav-item ${location.pathname === '/dashboard/current-application' ? 'active' : ''}`}>
+        <Link 
+          to="/dashboard/current-application"  
+          className={`sidebar-nav-item ${location.pathname.startsWith('/dashboard/current-application') || location.pathname === '/dashboard/' ? 'active' : ''}`}
+        >
           <img className="nav-icon" src={currentApplicationIcon} alt="Current Application Icon" />
           Current Applications
         </Link>
-        <Link to="/dashboard/new-application" className={`sidebar-nav-item ${location.pathname === '/dashboard/new-application' ? 'active' : ''}`}>
+        <Link to="/dashboard/new-application" className={`sidebar-nav-item ${location.pathname.startsWith('/dashboard/new-application') ? 'active' : ''}`}>
           <img className="nav-icon" src={newApplicationIcon} alt="New Application Icon" />
           New Applications
         </Link>
-        <Link to="/dashboard/run-history" className={`sidebar-nav-item ${location.pathname === '/dashboard/run-history' ? 'active' : ''}`}>
+        <Link to="/dashboard/run-history" className={`sidebar-nav-item ${location.pathname.startsWith('/dashboard/run-history') ? 'active' : ''}`}>
           <img className="nav-icon" src={runHistoryIcon} alt="Run History Icon" />
           Run History
         </Link>
-        <Link to="/dashboard/settings" className={`sidebar-nav-item ${location.pathname === '/dashboard/settings' ? 'active' : ''}`}>
+        <Link to="/dashboard/settings" className={`sidebar-nav-item ${location.pathname.startsWith('/dashboard/settings') ? 'active' : ''}`}>
           <img className="nav-icon" src={settingsIcon} alt="Settings Icon" />
           Settings
         </Link>

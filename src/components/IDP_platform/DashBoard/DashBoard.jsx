@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import './DashBoard.css';
 import Sidebar from 'components/IDP_platform/Sidebar/Sidebar';
 import TopNav from 'components/IDP_platform/TopNav/TopNav';
 import MainContent from 'components/IDP_platform/MainContent/MainContent';
@@ -24,7 +25,7 @@ const DashBoard = () => {
         <TopNav />
         <div className="content-area">
           <Routes>
-            
+            <Route path="/" element={<CurrentApplication />} />
             <Route path="/current-application" element={<CurrentApplication />} />
             {/* <Route path="/current-application/overlap-test" element={<OverlapTest />}>
               <Route index element={<InputProcessing />} />

@@ -163,7 +163,7 @@ import { visuallyHidden } from '@mui/utils';
           <table>
           <thead>
             <tr>
-              <th></th>
+       
               <th>
                 <TableSortLabel
                   active={orderBy === 'app_name'}
@@ -228,7 +228,7 @@ import { visuallyHidden } from '@mui/utils';
             <tbody>
               {currentItems.map((app, index) => (
                 <tr key={index}>
-                  <td><input type="checkbox" /></td>
+                
                   <td>{app.app_name}</td>
                   <td>{app.creator}</td>
                   <td>{app.app_run_params.start_date}</td>

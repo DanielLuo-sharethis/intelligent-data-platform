@@ -3,6 +3,7 @@ import { Button, Alert } from "react-bootstrap";
 import { useAuth } from "contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "./Settings.css"; // Import the CSS file
+import userIcon from "assets/user.png";
 
 export default function Settings() {
   const [error, setError] = useState("");
@@ -27,16 +28,28 @@ export default function Settings() {
   }
 
   return (
-    <div className="profile-container">
-      <h2 className="profile-title text-center">Profile</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
-      <div className="profile-details">
-        <p><strong>Organization: </strong>{organization}</p>
-        <p><strong>Email:</strong> {currentUser.email}</p>
+    <div className="settings-container">
+      <div className="settings-card">
+        <div className="settings-header-image">
+          <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80" alt="Header" />
+        </div>
+        <div className="settings-profile-image">
+          <img src={userIcon} alt="Profile" />
+        </div>
+        <div className="settings-content">
+          <h2>Org: {organization}</h2>
+          <p className="profile-email">{currentUser.email}</p>
+          <p className="profile-description">
+           
+          </p>
+        </div>
+        <hr />
+        <div className="settings-footer">
+          <Button className="log-out-button" variant="link" onClick={handleLogout}>
+            Log Out
+          </Button>
+        </div>
       </div>
-      <Button className="log-out-button" variant="link" onClick={handleLogout}>
-        Log Out
-      </Button>
     </div>
   );
 }

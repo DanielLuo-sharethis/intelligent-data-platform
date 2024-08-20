@@ -39,7 +39,7 @@
     padding: 24px 15px;
     color: var(--Neutral-100, #20262A);
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 20px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -55,17 +55,16 @@
     font-weight: 400;
     line-height: normal;
 
+    white-space: normal; /* Allow the text to wrap to the next line */
+    word-wrap: break-word; /* Ensure long words break and wrap to the next line */
+    overflow-wrap: break-word; /* This is a modern alternative to word-wrap, does the same thing */
  
-   
 }
 .run-history table thead th {
   width: 15%; /* Adjust this as per your needs for consistent spacing between headers */
 }
 
-.run-history table thead th:first-child,
-.run-history table thead th:last-child {
-    width: 10%; /* Adjust width for checkbox and actions */
-}
+
 
 .run-history table tbody tr:hover {
     background-color: #f1f1f1;

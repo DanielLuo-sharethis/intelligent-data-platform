@@ -85,7 +85,7 @@ const CurrentApplication = () => {
   }, [organization]);
 
     const handleRun = (application) => {
-        if (application === 'overlap_test' || application === 'scale_estimate') {
+        if (application === 'overlap_test' || application === 'scale_estimate' || application === 'anomaly_detection') {
             navigate(`./use-case/${application}`);
         }
       
