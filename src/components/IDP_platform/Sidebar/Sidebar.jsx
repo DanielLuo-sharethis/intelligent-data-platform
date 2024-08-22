@@ -10,6 +10,7 @@ import predactiv_TM from 'assets/predactiv_TM.svg';
 
 
 
+
 function Sidebar() {
   const location = useLocation();
   const isNewApplicationPage = location.pathname === '/new-application';
@@ -50,7 +51,7 @@ function Sidebar() {
       </div>
 
 
-
+    
       <nav className="sidebar-nav">
         <Link 
           to="/dashboard/current-application"  

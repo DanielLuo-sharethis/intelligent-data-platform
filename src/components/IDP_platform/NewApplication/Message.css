@@ -4,6 +4,10 @@
   display: flex;
   align-items: flex-start;
   margin: 8px 0;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+  white-space: pre-wrap; /* Ensures long text wraps */
+  overflow-wrap: break-word; /* Break long words */
 }
 
 .message.user {

@@ -5,6 +5,7 @@ import InputBox from './InputBox';
 import './NewApplication.css'; // Import the CSS module
 import 'process/browser';
 import {useAuth} from 'contexts/AuthContext';
+import { Link } from 'react-router-dom';
 
 
 
@@ -27,12 +28,9 @@ const NewApplication = () => {
     { role: 'assistant',
       content:  <div>
     <p>Welcome to the Predactiv Intelligent Data Platform! Our AI assistant leverages generative AI technology to democratize data operations, analytics, and data science automation through a conversational user experience.</p>
-    <p>Currently, I can assist you with:</p>
-    <ul>
-      <li><b>Scale Estimate</b>: Helping you estimate the size and impact of various metrics based on specified parameters.</li>
-      <li><b>Overlap Test</b>: Assisting you in performing overlap tests to understand intersections between different data sets.</li>
-    </ul>
-    <p>Feel free to ask me any questions or specify tasks you need help with!</p>
+    <p>Currently, I can assist you with tasks like <b>Overlap Test</b>, <b>Scale Estimate</b>, <b>Anomaly Detection</b>, <b>Crawling and Text Categorization</b>, and <b>Modeling and Prediction</b>.</p>
+    
+    <p>How can I help you? </p>
   </div>, 
     options: [],
     description: 'intro' }
@@ -50,8 +48,8 @@ const NewApplication = () => {
   const [questionAnswerPairs, setQuestionAnswerPairs] = useState([]);  // Add state to track question_answer_pairs
   const [questionInputValue, setQuestionInputValue] = useState('');  // Add state to track question input value
   const [finalRequest, setFinalRequest] = useState('');  // Add state to track final request
-  const {currentUser} = useAuth();
-  const [organization, setOrganization] = useState('');
+  const {currentUser, organization} = useAuth();
+ 
 
   // const [ScaleEstimateFormData, setScaleEstimateFormData] = useState();
 
@@ -59,7 +57,7 @@ const NewApplication = () => {
   useEffect(() => {
     console.log("currentUser", currentUser);
     const organization = currentUser.displayName;
-    setOrganization(organization);
+  
     console.log("currentUser's Organization", organization);
 
    }, [currentUser]);
@@ -137,10 +135,24 @@ const NewApplication = () => {
       console.error('Error fetching platform apps:', error);
   }
 };
-  const remove_underline = (text) => {
-    return text.replace(/_/g, ' ');
-  };
+const remove_underline = (text) => {
+  // Check if the text contains underscores and no spaces
+  if (!text.includes('_') && text.includes(' ')) {
+    return text; // No need to modify if it's already in the correct format
+  }
 
+  // Replace underscores with spaces
+  return text.replace(/_/g, ' ');
+};
+  const add_underline = (text) => {
+    // Check if the text already contains underscores and no spaces
+    if (text.includes('_') && !text.includes(' ')) {
+      return text; // No need to modify if it's already in the correct format
+    }
+  
+    // Replace spaces with underscores
+    return text.replace(/ /g, '_');
+  };
 
   const ShowAllUsecaseOptions = async(message_content) => {
     const all_platform_apps = await get_platform_app();
@@ -157,17 +169,11 @@ const NewApplication = () => {
     ]);
   };
 
-  async function get_openai_response(message, is_detect_use_case=true) {
-    const response = await axios.post('http://127.0.0.1:5000/response/get-response', {
-        messages: message,
-        is_detect_use_case: is_detect_use_case
-      });
-    console.log('response from backend:', response.data);
-    return response.data;
-  }
+ 
 
- const saveApplication = async (account, application) => {
+ const saveApplication = async ( application) => {
    try{
+    console.log('saveApplication:', application, "organization:", organization);
     const response = await axios.get(`https://idp.predactiv.com/apps/save_new_user_app/${organization}/${application}`, {});
     const backend_response = response.data;
     console.log('saveApplication response from backend:', backend_response);
@@ -181,29 +187,20 @@ const NewApplication = () => {
     if (response === 'yes') {
       setIsInUseCaseSelection(false);
       // Execute the aiResponse task
+      console.log('Iam here ');
+      console.log('useCase:', useCase);
+      const option_no_underline = remove_underline(useCase);
+      const option_underline = add_underline(useCase);
       
-      
-      
-      if (useCase === "scale estimate") {
-        await saveApplication("LG", "scale_estimate");
+      await saveApplication(option_underline);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { role: 'assistant', content: 'save scale estimate to Current Application'},
+          { role: 'assistant', content: `Saved ${option_no_underline} to Current Applications${<Link ></Link>}, now you can run the application from the Current Applications page` },
          
         ]);
-      }
-      if(useCase === "overlap test"){
-        await saveApplication("LG", "overlap_test");
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          { role: 'assistant', content: 'save overlap test to Current Application'},
-         
-        ]);
-      }
+      
     } else if (response === 'no') {
-      // Do not execute the aiResponse task
-      setIsPendingUseCaseChange(!isPendingUseCaseChange);
-      await sendMessage('No', false, false);
+      ShowAllUsecaseOptions('Sorry, we are still improving our data-related skills, we are not able to process your request at this stage. Would you be interested in any of the following tasks?');
     }
 
     // // Process next pending use case if exists
@@ -240,49 +237,25 @@ const NewApplication = () => {
  
  // show all option and let user choose
   const handleOptionClick = async (option) => {
+    console.log('option:', option);
     // await sendMessage(option, false);
     if (option === 'yes' || option === 'no') {
       await handleUserResponse(option);
-    } else if (option === "scale estimate") {
-      setUseCase('scale estimate');
-      // get questions for scale estimate from 'http://127.0.0.1:5000/scale_estimate/get_questions'
-      // const response_questions = await axios.post('http://127.0.0.1:5000/scale_estimate/get_questions', {});
-      // const scale_estimate_questions = response_questions.data.questions;
-      // console.log('SCALE ESTIMATE response_questions:', scale_estimate_questions, "type: ", typeof scale_estimate_questions);
-      // console.log('SCALE ESTIMATE DATE input:', response_questions.data.questions[1]['question_input_value']);
-      await saveApplication("LG", "scale_estimate");
+    } else {
+      // meaning options are use case
+      const option_underline = add_underline(option);
+      const option_no_underline = remove_underline(option);
+      await saveApplication(option_underline);
 
       setMessages((prevMessages) => [
         ...prevMessages,
-        { role: 'assistant', content: 'save scale estimate to Current Application'},
+        { role: 'assistant', content: `save ${option_no_underline} to Current Application`},
        
       ]);
-    } else if (option === "overlap test") {
-      await saveApplication("LG", "overlap_test");
-      console.log('overlap test option clicked');
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: 'assistant', content: 'save overlap test to Current Application'},
-          
-      ]);
+    } 
       
 
-    } else if (option === "anomaly detection") {
-      await saveApplication("LG", "anomaly_detection");
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: 'assistant', content: 'save anomaly detection to Current Application'},
-          
-      ]);
-
-    }else if (option === "crawling and text categorization") {
-      await saveApplication("LG", "crawling_and_text_categorization");
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: 'assistant', content: 'save crawling and text categorization to Current Application'},
-          
-      ]);
-    }
+   
   };
 
   // can disable the is_detect_use_case flag to avoid detecting use case
@@ -303,50 +276,40 @@ const NewApplication = () => {
     }
 
     try {
-      const response_backend = await get_openai_response(filteredMessages, is_detect_use_case);
-
-      // Process the response
-      const { response: aiResponse, is_use_case } = response_backend;
-      console.log('is_use_case:', is_use_case);
-      if (is_use_case) {
-        
-        console.log('We have potential use case', aiResponse);
+      const response_backend = await get_app_candidates(text);
+      const {application_name, application_description} = response_backend;
       
-        setIsInUseCaseSelection(true);
-        setPendingUseCases(aiResponse); // useEffect will catch the change
-        setIsPendingUseCaseChange(!isPendingUseCaseChange);
-        
-
-        // const firstUseCase = pendingUseCases.shift();
-        // console.log('firstUseCase:', firstUseCase);
-        // setUseCase(firstUseCase);
-        // await send_use_case(firstUseCase);
-
-        return;
-      }else{
-        
+      if (!application_name) {
         ShowAllUsecaseOptions("Sorry, we are still improving our data-related skills, we are not able to process your request at this stage. Would you be interested in any of the following tasks?")
         return;
       }
-
-      const aiMessage = {
-        role: 'assistant',
-        content: aiResponse,
-        isUseCase: is_use_case.toString(),  // Add flag to the message
-        options: is_use_case ? yes_no_options : [], // Add yes/no options if it's a use case
-      };
       
 
-      setMessages((prevMessages) => [...prevMessages, aiMessage]);
+
+      // Process the response
+      send_use_case(application_name);
+      setUseCase(application_name);
+        
+       
+
+      
 
     } catch (error) {
       console.error('Error fetching AI response:', error);
     }
   };
 
+  const get_app_candidates = async (user_request) => {
+    const response = await axios.get(`https://idp.predactiv.com/apps/get_app_candidate/${user_request}`, {});
+    const get_app_candidates_response = response.data;
+    console.log('get_app_candidates_response:', get_app_candidates_response);
+    return get_app_candidates_response;
+  };
+ 
+
   // send use case and ask for confirmation
   const send_use_case = async (use_case) => {
-    const formattedUseCase = `Based on your text response, I think you are interested in performing ${use_case}. Do you want to proceed?`;
+    const formattedUseCase = `Based on your request, I think you are interested in performing ${use_case}. Do you want to proceed?`;
     setMessages((prevMessages) => [
       ...prevMessages,
       {
@@ -361,18 +324,18 @@ const NewApplication = () => {
   
 
   
-  const handle_scale_estimate_form_submit = async (formData) => {
-    try {
-      console.log('------------formData', formData);
-      const response = await axios.post('http://127.0.0.1:5000/scale_estimate/get_questions', formData);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { role: 'assistant', content: `Scale Estimate Result: ${JSON.stringify(response.data.sql_result)}` }
-      ]);
-    } catch (error) {
-      console.error('Error performing scale estimate:', error);
-    }
-  };
+  // const handle_scale_estimate_form_submit = async (formData) => {
+  //   try {
+  //     console.log('------------formData', formData);
+  //     const response = await axios.post('http://127.0.0.1:5000/scale_estimate/get_questions', formData);
+  //     setMessages((prevMessages) => [
+  //       ...prevMessages,
+  //       { role: 'assistant', content: `Scale Estimate Result: ${JSON.stringify(response.data.sql_result)}` }
+  //     ]);
+  //   } catch (error) {
+  //     console.error('Error performing scale estimate:', error);
+  //   }
+  // };
 
   
   

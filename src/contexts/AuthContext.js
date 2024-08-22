@@ -34,7 +34,11 @@ export function AuthProvider({ children }) {
             .then((userCredential) => {
                 const user = userCredential.user;
                 
-                return user.updateProfile( { displayName: organization});
+                return user.updateProfile({ displayName: organization })
+                .then(() => {
+                  // Ensure the currentUser is updated after the profile update
+                  setCurrentUser(auth.currentUser);
+                });
         })
 
     }

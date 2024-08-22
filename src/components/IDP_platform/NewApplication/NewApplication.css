@@ -1,28 +1,18 @@
 .NewApplication {
   display: flex;
   flex-direction: column;
-  height: 95%;
-  
+  height: 90vh;
   padding: 20px;
   flex-grow: 1;
   justify-content: space-between;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-
-
+  overflow: hidden; /* Hide overflow */
 }
 
-
-
-
-.message {
-  margin-bottom: 15px;
-  word-wrap: break-word;
-  white-space: pre-wrap; /* Ensures long text wraps */
+.NewApplication .chat-window {
+  flex: 1;
+  overflow-y: auto; /* This ensures the chat window will scroll if content overflows */
+  padding: 10px;
+  background-color: #fff;
+  max-height: 100%; /* Ensure the chat window stays within its container */
 }
-
-
-/* scale estimate result  */
-
-
-
-
